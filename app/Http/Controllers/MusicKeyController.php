@@ -54,7 +54,7 @@ class MusicKeyController extends Controller
      */
     public function show(musicKey $musicKey)
     {
-        //
+
     }
 
     /**
@@ -62,7 +62,9 @@ class MusicKeyController extends Controller
      */
     public function edit(musicKey $musicKey)
     {
-        //
+        //generate Laravel controler edit action
+
+
     }
 
     /**
