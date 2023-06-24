@@ -13,8 +13,8 @@ class SongController extends Controller
      */
     public function index()
     {
-        $songs = Song::all();
-        return view('songs.index', compact('songs'));
+        $Songs = Song::all();
+        return view('songs.index', compact('Songs'));
     }
 
     /**
@@ -33,8 +33,10 @@ class SongController extends Controller
     public function store(Request $request)
     {
         $song = new Song();
-        $song->title = $request->input('title');
-        // Ustawienie innych pól utworzonego utworu
+        $song->name = $request->input('name');
+        $song->songBeginCdur=$request->input('songBeginCdur');
+        $song->openSongText=$request->input('openSongText');
+        $song->music_key_id=$request->input('music_key_id '); //klucz obcy do tabeli z tonacjami
 
         $song->save();
 

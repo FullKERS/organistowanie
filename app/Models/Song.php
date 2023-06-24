@@ -9,7 +9,7 @@ class Song extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'musicalKey', 'songBeginCdur', 'openSongText'];
+    protected $fillable = ['name', 'songBeginCdur', 'openSongText'];
     protected $primaryKey = 'id';
     public $timestamps = true;
 
