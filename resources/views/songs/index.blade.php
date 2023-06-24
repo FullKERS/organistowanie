@@ -25,16 +25,6 @@
             @php
                 $heads = ['Nazwa', 'Tonacja', ['label' => 'Akcje', 'no-export' => true, 'width' => 5]];
 
-                $btnEdit = '<button class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edytuj">
-        <i class="fa fa-lg fa-fw fa-pen"></i>
-    </button>';
-                $btnDelete = '<button class="btn btn-xs btn-default text-danger mx-1 shadow" title="Usuń">
-          <i class="fa fa-lg fa-fw fa-trash"></i>
-      </button>';
-                $btnDetails = '<button class="btn btn-xs btn-default text-teal mx-1 shadow" title="Szczegóły">
-           <i class="fa fa-lg fa-fw fa-eye"></i>
-       </button>';
-
                 $config = [
                     'data' => $Songs,
                     'order' => [[1, 'asc']],
@@ -45,10 +35,27 @@
             {{-- Minimal example / fill data using the component slot --}}
             <x-adminlte-datatable id="table1" :heads="$heads">
                 @foreach ($config['data'] as $row)
+                    @php
+                        $btnEdit = '<a href="'.route('songs.edit', $row->id).'" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edytuj">
+                        <i class="fa fa-lg fa-fw fa-pen"></i>
+                    </a>';
+                        $btnDelete = '<a onclick="event.preventDefault(); if (confirm(\'Czy na pewno chcesz usunąć utwór '.$row->name.'?\')) document.getElementById(\'delete-song-'.$row->id.'\').submit();" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Usuń">
+                        <i class="fa fa-lg fa-fw fa-trash"></i>
+                    </a>';
+                        $btnDetails = '<a class="btn btn-xs btn-default text-teal mx-1 shadow" title="Szczegóły">
+                        <i class="fa fa-lg fa-fw fa-eye"></i>
+                    </a>';
+                    @endphp
                     <tr>
                         <td>{!! $row['name'] !!}</td>
                         <td></td>
-                        <td>{!! '<nobr>' . $btnEdit . $btnDelete . $btnDetails . '</nobr>' !!}</td>
+                        <td>
+                            {!! '<nobr>' . $btnEdit . $btnDelete . $btnDetails . '</nobr>' !!}
+                            <form id="delete-song-{{ $row->id }}" action="{{ route('songs.destroy', $row->id) }}" method="POST" style="display: none;">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                        </td>
                     </tr>
                 @endforeach
             </x-adminlte-datatable>

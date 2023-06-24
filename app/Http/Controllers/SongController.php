@@ -49,9 +49,9 @@ class SongController extends Controller
      */
     public function show(string $id)
     {
-        $song = Song::findOrFail($id);
+        //$song = Song::findOrFail($id);
 
-        return view('songs.show', compact('song'));
+        //return view('songs.show', compact('song'));
 
     }
 
@@ -61,8 +61,9 @@ class SongController extends Controller
     public function edit(string $id)
     {
         $song = Song::findOrFail($id);
+        $musicKeys = musicKey::all();
 
-        return view('songs.edit', compact('song'));
+        return view('songs.edit', compact('song', 'musicKeys'));
 
     }
 
@@ -72,7 +73,7 @@ class SongController extends Controller
     public function update(Request $request, string $id)
     {
         $song = Song::findOrFail($id);
-        $song->title = $request->input('title');
+        $song->update($request->all());
         // Ustawienie innych pól edytowanego utworu
 
         $song->save();
