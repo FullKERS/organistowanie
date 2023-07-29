@@ -18,4 +18,9 @@ class Song extends Model
     {
         return $this->belongsTo(MusicKey::class);
     }
+
+    public function songComment(){
+        return $this->hasMany(songComment::class);
+    }
+
 }
